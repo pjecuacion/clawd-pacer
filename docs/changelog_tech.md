@@ -1,5 +1,16 @@
 # Changelog (technical)
 
+## [0.3.0] - 2026-10-05
+- Files added: clawd_pacer/{install,platform_check,single_instance}.py, scripts/install.bat, .gitattributes,
+  tests/unit/{install-helpers,platform-instance}.test.py
+- Files changed: __main__.py (platform/tkinter guard, MessageBox under pythonw, InstanceLock), config.py
+  (CREDENTIALS_PATH -> CLAUDE_DIR_DEFAULT + CREDENTIALS_FILE), credentials.py (credentials_path(env) honours
+  CLAUDE_CONFIG_DIR; load_token(path=None)), usage_client.py (`seven_day: null` -> Pro/Max message),
+  scripts/start-clawd.bat (relative to %~dp0, uses .venv), docs/README.md.
+- Installer: venv.create(with_pip=False); Startup .lnk via PowerShell WScript.Shell (single-quote escaped);
+  launch with DETACHED_PROCESS. Single instance: CreateMutexW("Local\ClawdPacerSingleInstance").
+- Migration: run scripts\install.bat once; remove any manually copied start-clawd.bat from shell:startup.
+
 ## [0.2.0] - 2026-10-05
 - Files added: clawd_pacer/{synth,sounds,player,quips,events,personality,animator,bubble}.py,
   tests/unit/{synth-wav,quips-pick,personality-events}.test.py

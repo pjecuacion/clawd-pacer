@@ -35,7 +35,6 @@ def test_missing_session_is_ok():
 
 @pytest.mark.parametrize("bad", [
     {},
-    {"seven_day": None},
     {"seven_day": {"utilization": 20.0}},
     {"seven_day": {"utilization": "x", "resets_at": "2026-10-11T03:00:00+00:00"}},
     {"seven_day": {"utilization": 1, "resets_at": "not a date"}},
@@ -62,3 +61,17 @@ def test_http_errors_become_friendly_usage_errors(monkeypatch, code, msg):
     monkeypatch.setattr(usage_client.urllib.request, "urlopen", fake_urlopen)
     with pytest.raises(UsageError, match=msg):
         usage_client.fetch_usage("fake-token")
+
+
+def test_no_weekly_limit_says_pro_max():
+    with pytest.raises(UsageError, match="Pro/Max"):
+        parse_usage({"seven_day": None})
+
+
+def test_credentials_path_respects_claude_config_dir():
+    import os
+    from clawd_pacer.credentials import credentials_path
+    assert credentials_path({"CLAUDE_CONFIG_DIR": "D:/cc"}) == os.path.join("D:/cc", ".credentials.json")
+    default = credentials_path({})
+    assert default.endswith(os.path.join(".claude", ".credentials.json"))
+    assert "~" not in default

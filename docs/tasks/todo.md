@@ -87,3 +87,44 @@ Choices (user, 2026-10-05): rare chatter (~1/hour), synth sounds, quiet hours 22
   "room" never shown negative in quips.
 - Not verified by me: actual sound output (didn't want to beep at you unannounced) and live data.
 - Known limit: mute resets when the app restarts.
+
+---
+
+# Plan v0.3.0 — Easy install for other Claude users
+
+## Scope
+- `scripts/install.bat` (tiny): finds Python (`py -3`, else `python`) and runs `clawd_pacer.install`.
+- `clawd_pacer/install.py`: checks Python >= 3.10 + tkinter, makes `.venv` (no pip needed), adds a
+  Startup shortcut pointing at *this* folder, starts Clawd. `--uninstall` removes the shortcut; `--no-start`.
+- `scripts/start-clawd.bat`: back to folder-relative (no hard-coded path).
+- Windows-only guard: clear message on Mac/Linux instead of a crash (`--check` still allowed).
+- Single instance: Windows named mutex; a second launch exits quietly.
+- Friendlier sleepy messages; honour `CLAUDE_CONFIG_DIR` for the login file; "needs Pro/Max" when no weekly limit.
+- README rewrite: who it's for, download, install, uninstall, known limits.
+
+## Non-goals
+- Token refresh (could log users out of Claude Code), Mac/Linux support, .exe build.
+
+## Steps
+- [x] 1. credentials: `credentials_path(env)` + friendlier errors
+- [x] 2. usage_client: `seven_day: null` -> "needs Pro/Max plan" message
+- [x] 3. `platform_check.py` + `single_instance.py`, wired in `__main__`
+- [x] 4. `install.py` + `install.bat`; relative `start-clawd.bat`
+- [x] 5. README, requirements, changelogs, version 0.3.0
+- [x] 6. Run installer here with `--no-start`, check the shortcut; commit + push
+- [ ] 7. Tag v0.3.0 (ask user)
+
+## Test strategy
+- What: credentials path (env set / unset), null weekly limit message, platform message,
+  mutex blocks a 2nd instance (Windows only), shortcut PowerShell command (quoting, paths with spaces),
+  startup folder path, Python version check.
+- How: pytest, pure functions with injected env/platform; mutex uses a unique test name.
+- Where: `tests/unit/install-helpers.test.py`, `tests/unit/platform-instance.test.py`, `tests/unit/usage-parse.test.py`.
+
+## Review
+- 63/63 tests pass (incl. real Windows mutex test).
+- End-to-end: copied project to a temp folder with a space in its name, ran install.bat --no-start:
+  venv created, Startup shortcut target/args/workdir correct, venv imports tkinter + app. --uninstall removed it.
+  Then installed from E:\Git\clawd-pacer (shortcut now points there).
+- Found during build: Git Bash rewrote `>nul` to `>/dev/null` in the .bat; fixed + .gitattributes forces CRLF for .bat.
+- Not verified: Mac/Linux message on a real Mac (unit-tested only); fresh PC without Python.

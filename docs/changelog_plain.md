@@ -1,5 +1,16 @@
 # Changelog (plain)
 
+## [0.3.0] - 2026-10-05
+### Added
+- One-click installer (`scripts\install.bat`): sets everything up, makes Clawd start with Windows, and starts it.
+  `install.bat --uninstall` removes it from startup.
+- Only one Clawd at a time, even if you start it twice.
+- Clear messages instead of crashes on Mac/Linux, old Python, or missing tkinter.
+### Changed
+- Sleepy messages now tell you what to do (log in with Pro/Max, open Claude Code, etc.).
+- `start-clawd.bat` works from wherever the folder is (no more hard-coded path).
+- README rewritten for new users: who it's for, install, uninstall, troubleshooting.
+
 ## [0.2.0] - 2026-10-05
 ### Added
 - Clawd has a personality now! It blinks, waves its claws, and hops when you click it.

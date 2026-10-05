@@ -13,8 +13,10 @@
 9. Sounds are synthesized in code (no files), short (< 1.5 s), mutable from the right-click menu.
 10. Random chatter at most about once an hour (45-75 min apart); no sounds 22:00-08:00 except when poked.
 11. Event reactions: daily greeting, over pace, back on pace, day won, weekly reset.
+12. Installable by other Windows users with one double-click; no hard-coded paths; uninstall supported.
+13. Only one instance runs at a time. Unsupported setups get a plain-English message, never a traceback.
 
 ## How to run
-- Double-click `scripts/start-clawd.bat` (copy it into `shell:startup` to launch at login), or `pythonw -m clawd_pacer` from the project folder.
+- Double-click `scripts/install.bat` once (sets up, adds to Startup, starts). Later: `scripts/start-clawd.bat`.
 - Quick console check: `python -m clawd_pacer --check`
 - Tests: `.venv\Scripts\python -m pytest`

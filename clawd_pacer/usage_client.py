@@ -22,6 +22,8 @@ class Usage:
 
 def parse_usage(data: dict) -> Usage:
     """Turn the raw JSON into a Usage. Raises UsageError if fields are missing."""
+    if isinstance(data, dict) and "seven_day" in data and data["seven_day"] is None:
+        raise UsageError("No weekly limit found - needs a Pro/Max plan")
     try:
         week = data["seven_day"]
         resets_at = datetime.fromisoformat(week["resets_at"])
@@ -44,7 +46,7 @@ def fetch_usage(token: str, url: str = USAGE_URL, timeout: float = 10) -> Usage:
             return parse_usage(json.load(resp))
     except urllib.error.HTTPError as e:
         if e.code in (401, 403):
-            raise UsageError("Login expired - open Claude Code") from e
+            raise UsageError("Login expired - open Claude Code to wake me") from e
         raise UsageError(f"Server said HTTP {e.code}") from e
     except (urllib.error.URLError, TimeoutError, ValueError) as e:
         raise UsageError("Can't reach Claude right now") from e
