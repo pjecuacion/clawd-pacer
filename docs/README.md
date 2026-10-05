@@ -54,3 +54,6 @@ python -m venv .venv && .venv\Scripts\pip install pytest
 .venv\Scripts\python -m pytest
 .venv\Scripts\python -m clawd_pacer --check   # one-line status in the console
 ```
+
+## License
+MIT - see [LICENSE](../LICENSE). Clawd and Claude are trademarks of Anthropic; this is an unofficial fan project.

@@ -73,7 +73,7 @@ Choices (user, 2026-10-05): rare chatter (~1/hour), synth sounds, quiet hours 22
 - [x] 7. Sprite poses (blink, wave), `bubble.py`, window: bubble area, click-vs-drag poke, mute menu
 - [x] 8. App wiring, version 0.2.0, changelogs
 - [x] 9. Visual check by screenshot
-- [ ] 10. Sound check by user (poke Clawd)
+- [x] 10. Sound check by user (confirmed working 2026-10-05)
 
 ## Test strategy
 - What: WAV validity/length/determinism; sound recipes all render; quip picking (seeded, no repeats);
