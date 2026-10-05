@@ -112,7 +112,7 @@ Choices (user, 2026-10-05): rare chatter (~1/hour), synth sounds, quiet hours 22
 - [x] 4. `install.py` + `install.bat`; relative `start-clawd.bat`
 - [x] 5. README, requirements, changelogs, version 0.3.0
 - [x] 6. Run installer here with `--no-start`, check the shortcut; commit + push
-- [ ] 7. Tag v0.3.0 (ask user)
+- [x] 7. Tag v0.3.0
 
 ## Test strategy
 - What: credentials path (env set / unset), null weekly limit message, platform message,
