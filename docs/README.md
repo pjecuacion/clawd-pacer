@@ -2,6 +2,8 @@
 
 A tiny pixel Clawd that lives on your Windows desktop and helps you pace your **weekly Claude usage limit**.
 
+![Clawd's four moods: happy, on pace, worried, sleepy](images/clawd-moods.png)
+
 - Target: **14% per day** (98% by the end of your week), growing smoothly by the hour.
 - Reads your weekly usage % automatically, and knows your personal reset time.
 - Mood shows your pace: happy (under), okay (on pace), worried (over), sleepy (no data).
